@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UTS Logika Matematika - Perhitungan Zakat</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #60b1fd 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #60b1fd 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      display: inline-block;
+      text-align: left;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-card p {
+      margin: 8px 0;
+      font-size: 0.95em;
+    }
+
+    .info-card strong {
+      display: inline-block;
+      width: 90px;
+    }
+
+    .content {
+      padding: 40px 30px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.3em;
+      color: #667eea;
+      margin-bottom: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-group {
+      background: #f8f9ff;
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 15px;
+      border: 2px solid #e8ecff;
+      transition: all 0.3s ease;
+    }
+
+    .form-group:hover {
+      border-color: #667eea;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-group h4 {
+      color: #60b1fd;
+      margin-bottom: 20px;
+      font-size: 1.1em;
+    }
+
+    .input-wrapper {
+      margin-bottom: 15px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 12px;
+      padding: 12px;
+      background: white;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .checkbox-item:hover {
+      background: #f0f4ff;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+
+    .checkbox-item label {
+      flex: 1;
+      cursor: pointer;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .checkbox-item input[type="number"] {
+      flex: 2;
+      padding: 10px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+    }
+
+    .checkbox-item input[type="number"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .checkbox-item input[type="number"]:disabled {
+      background: #f5f5f5;
+      cursor: not-allowed;
+    }
+
+    select {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1em;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      margin-top: 8px;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #667eea 0%, #60b1fd 100%);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .result-card {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 20px;
+      box-shadow: 0 8px 25px rgba(17, 153, 142, 0.3);
+      display: none;
+    }
+
+    .result-card.show {
+      display: block;
+      animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-card h3 {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+
+    .result-details {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      line-height: 1.8;
+    }
+
+    .logic-card {
+      background: #fff3cd;
+      color: #856404;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 20px;
+      border-left: 5px solid #ffc107;
+      display: none;
+    }
+
+    .logic-card.show {
+      display: block;
+      animation: slideIn 0.5s ease;
+    }
+
+    .mustahik-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .mustahik-item {
+      background: white;
+      padding: 12px 15px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .mustahik-item:hover {
+      background: #f0f4ff;
+      transform: translateX(5px);
+    }
+
+    .mustahik-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+
+    .mustahik-item label {
+      cursor: pointer;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .label-text {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .pembagian-card {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 20px;
+      box-shadow: 0 8px 25px rgba(240, 147, 251, 0.3);
+      display: none;
+    }
+
+    .pembagian-card.show {
+      display: block;
+      animation: slideIn 0.5s ease;
+    }
+
+    .pembagian-item {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+      
+      .content {
+        padding: 20px 15px;
+      }
+      
+      .mustahik-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🕌 UTS Kalkulator Zakat</h1>
+      <div class="info-card">
+        <p><strong>NIM:</strong> 256512019</p>
+        <p><strong>Nama:</strong> Rahmat Nanjar</p>
+        <p><strong>Kelas:</strong> Teknik Informatika</p>
+        <p><strong>Dosen:</strong> Iin Sholihin, M.Kom</p>
+        <p><strong>Kampus:</strong> Masoem University</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="section">
+        <div class="section-title">📋 Pilih Jenis Zakat</div>
+        <select id="jenisZakat" onchange="tampilkanInput()">
+          <option value="">-- Pilih Jenis Zakat --</option>
+          <option value="mal">Zakat Mal (Harta)</option>
+          <option value="fitrah">Zakat Fitrah</option>
+        </select>
+      </div>
+
+      <!-- Input Zakat Mal -->
+      <div id="zakatMal" class="form-group" style="display:none;">
+        <h4>💰 Data Harta Zakat Mal</h4>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkEmas" onchange="toggle('Emas')">
+          <label for="chkEmas">Emas</label>
+          <input type="number" id="emas" placeholder="Gram" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkPerak" onchange="toggle('Perak')">
+          <label for="chkPerak">Perak</label>
+          <input type="number" id="perak" placeholder="Gram" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkUang" onchange="toggle('Uang')">
+          <label for="chkUang">Uang & Surat Berharga</label>
+          <input type="number" id="uang" placeholder="Rupiah" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkPertanian" onchange="toggle('Pertanian')">
+          <label for="chkPertanian">Pertanian</label>
+          <input type="number" id="pertanian" placeholder="Kg" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkPenghasilan" onchange="toggle('Penghasilan')">
+          <label for="chkPenghasilan">Penghasilan</label>
+          <input type="number" id="penghasilan" placeholder="Rupiah" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkPerniagaan" onchange="toggle('Perniagaan')">
+          <label for="chkPerniagaan">Perniagaan</label>
+          <input type="number" id="perniagaan" placeholder="Rupiah" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkPerternakan" onchange="toggle('Perternakan')">
+          <label for="chkPerternakan">Peternakan/Perikanan</label>
+          <input type="number" id="perternakan" placeholder="Ekor/Kg" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkPertambangan" onchange="toggle('Pertambangan')">
+          <label for="chkPertambangan">Pertambangan</label>
+          <input type="number" id="pertambangan" placeholder="Rupiah" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkInvestasi" onchange="toggle('Investasi')">
+          <label for="chkInvestasi">Investasi</label>
+          <input type="number" id="investasi" placeholder="Rupiah" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkTabungan" onchange="toggle('Tabungan')">
+          <label for="chkTabungan">Tabungan</label>
+          <input type="number" id="tabungan" placeholder="Rupiah" disabled>
+        </div>
+
+        <div class="checkbox-item">
+          <input type="checkbox" id="chkRikaz" onchange="toggle('Rikaz')">
+          <label for="chkRikaz">Rikaz (Harta Temuan)</label>
+          <input type="number" id="rikaz" placeholder="Rupiah" disabled>
+        </div>
+
+        <div class="input-wrapper">
+          <label class="label-text">⏱️ Lama Kepemilikan (Haul)</label>
+          <input type="number" class="input-field" id="haul" placeholder="Masukkan lama kepemilikan dalam tahun">
+        </div>
+
+        <button class="btn" onclick="hitungZakat()">🧮 Hitung Zakat Mal</button>
+      </div>
+
+      <!-- Input Zakat Fitrah -->
+      <div id="zakatFitrah" class="form-group" style="display:none;">
+        <h4>🍚 Data Zakat Fitrah</h4>
+        
+        <div class="input-wrapper">
+          <label class="label-text">👨‍👩‍👧‍👦 Jumlah Jiwa</label>
+          <input type="number" class="input-field" id="jiwa" placeholder="Jumlah anggota keluarga">
+        </div>
+
+        <div class="input-wrapper">
+          <label class="label-text">💵 Harga Beras per Kg</label>
+          <input type="number" class="input-field" id="hargaBeras" placeholder="Contoh: 15000">
+        </div>
+
+        <button class="btn" onclick="hitungZakat()">🧮 Hitung Zakat Fitrah</button>
+      </div>
+
+      <!-- Hasil Perhitungan -->
+      <div id="hasilCard" class="result-card">
+        <h3 id="hasilTitle"></h3>
+        <div class="result-details" id="argumen"></div>
+      </div>
+
+      <!-- Logika -->
+      <div id="logikaCard" class="logic-card">
+        <strong>🧩 Penjelasan Logika Matematika:</strong>
+        <p id="logika"></p>
+      </div>
+
+      <!-- Daftar Mustahik -->
+      <div class="form-group">
+        <h4>🤲 Pilih Golongan Mustahik (Penerima Zakat)</h4>
+        <div class="mustahik-grid">
+          <div class="mustahik-item">
+            <input type="checkbox" class="mustahik" value="Fakir" id="mFakir">
+            <label for="mFakir">Fakir</label>
+          </div>
+          <div class="mustahik-item">
+            <input type="checkbox" class="mustahik" value="Miskin" id="mMiskin">
+            <label for="mMiskin">Miskin</label>
+          </div>
+          <div class="mustahik-item">
+            <input type="checkbox" class="mustahik" value="Amil" id="mAmil">
+            <label for="mAmil">Amil</label>
+          </div>
+          <div class="mustahik-item">
+            <input type="checkbox" class="mustahik" value="Muallaf" id="mMuallaf">
+            <label for="mMuallaf">Muallaf</label>
+          </div>
+          <div class="mustahik-item">
+            <input type="checkbox" class="mustahik" value="Riqab" id="mRiqab">
+            <label for="mRiqab">Riqab</label>
+          </div>
+          <div class="mustahik-item">
+            <input type="checkbox" class="mustahik" value="Gharim" id="mGharim">
+            <label for="mGharim">Gharim</label>
+          </div>
+          <div class="mustahik-item">
+            <input type="checkbox" class="mustahik" value="Fi Sabilillah" id="mSabil">
+            <label for="mSabil">Fi Sabilillah</label>
+          </div>
+          <div class="mustahik-item">
+            <input type="checkbox" class="mustahik" value="Ibnu Sabil" id="mIbnu">
+            <label for="mIbnu">Ibnu Sabil</label>
+          </div>
+        </div>
+        <button class="btn" onclick="hitungPembagian()">📊 Hitung Pembagian Zakat</button>
+      </div>
+
+      <!-- Pembagian -->
+      <div id="pembagianCard" class="pembagian-card">
+        <div id="pembagian"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const KURS_EMAS = 2321000;
+    const KURS_PERAK = 9000;
+    const NISAB_EMAS = 85;
+    const NISAB_PERAK = 595;
+    const NISAB_PERTANIAN = 520;
+    const NISAB_PENGHASILAN = 85 * KURS_EMAS;
+    const NISAB_PERNIAGAAN = 85 * KURS_EMAS;
+    const NISAB_TABUNGAN = 85 * KURS_EMAS;
+    const PERSEN_ZAKAT = 0.025;
+    let totalZakat = 0;
+
+    function rupiah(angka) {
+      return angka.toLocaleString("id-ID");
+    }
+
+    function tampilkanInput() {
+      const jenis = document.getElementById("jenisZakat").value;
+      document.getElementById("zakatMal").style.display = jenis === "mal" ? "block" : "none";
+      document.getElementById("zakatFitrah").style.display = jenis === "fitrah" ? "block" : "none";
+      
+      document.getElementById("hasilCard").classList.remove("show");
+      document.getElementById("logikaCard").classList.remove("show");
+      document.getElementById("pembagianCard").classList.remove("show");
+    }
+
+    function toggle(jenis) {
+      const chk = document.getElementById("chk" + jenis);
+      const input = document.getElementById(jenis.toLowerCase());
+      input.disabled = !chk.checked;
+      if (!chk.checked) input.value = "";
+    }
+
+    function hitungZakat() {
+      const jenis = document.getElementById("jenisZakat").value;
+      let hasil = 0, argumen = "";
+
+      if (jenis === "mal") {
+        let haul = parseFloat(document.getElementById("haul").value) || 0;
+
+        const emas = parseFloat(document.getElementById("emas").value) || 0;
+        if (document.getElementById("chkEmas").checked && emas >= NISAB_EMAS && haul >= 1) {
+          const zakat = emas * KURS_EMAS * PERSEN_ZAKAT;
+          hasil += zakat;
+          argumen += `✅ Emas ${emas} gr → Wajib zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const perak = parseFloat(document.getElementById("perak").value) || 0;
+        if (document.getElementById("chkPerak").checked && perak >= NISAB_PERAK && haul >= 1) {
+          const zakat = perak * KURS_PERAK * PERSEN_ZAKAT;
+          hasil += zakat;
+          argumen += `✅ Perak ${perak} gr → Wajib zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const uang = parseFloat(document.getElementById("uang").value) || 0;
+        if (document.getElementById("chkUang").checked && uang >= NISAB_EMAS * KURS_EMAS && haul >= 1) {
+          const zakat = uang * PERSEN_ZAKAT;
+          hasil += zakat;
+          argumen += `✅ Uang & Surat Berharga Rp ${rupiah(uang)} → Wajib zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const pertanian = parseFloat(document.getElementById('pertanian').value) || 0;
+        if (document.getElementById('chkPertanian').checked && pertanian >= NISAB_PERTANIAN) {
+          const zakat = pertanian * 10000 * 0.05;
+          hasil += zakat;
+          argumen += `✅ Pertanian ${pertanian} kg → Zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const penghasilan = parseFloat(document.getElementById("penghasilan").value) || 0;
+        if (document.getElementById("chkPenghasilan").checked && penghasilan >= NISAB_PENGHASILAN) {
+          const zakat = penghasilan * PERSEN_ZAKAT;
+          hasil += zakat;
+          argumen += `✅ Penghasilan Rp ${rupiah(penghasilan)} → Zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const perniagaan = parseFloat(document.getElementById("perniagaan").value) || 0;
+        if (document.getElementById("chkPerniagaan").checked && perniagaan >= NISAB_PERNIAGAAN && haul >= 1) {
+          const zakat = perniagaan * PERSEN_ZAKAT;
+          hasil += zakat;
+          argumen += `✅ Perniagaan Rp ${rupiah(perniagaan)} → Zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const perternakan = parseFloat(document.getElementById("perternakan").value) || 0;
+        if (document.getElementById("chkPerternakan").checked && perternakan >= 40) {
+          const zakat = Math.floor(perternakan / 40) * 1 * KURS_EMAS;
+          hasil += zakat;
+          argumen += `✅ Peternakan ${perternakan} ekor → Zakat setara Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const pertambangan = parseFloat(document.getElementById("pertambangan").value) || 0;
+        if (document.getElementById("chkPertambangan").checked && pertambangan > 0) {
+          const zakat = pertambangan * PERSEN_ZAKAT;
+          hasil += zakat;
+          argumen += `✅ Pertambangan Rp ${rupiah(pertambangan)} → Zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const investasi = parseFloat(document.getElementById("investasi").value) || 0;
+        if (document.getElementById("chkInvestasi").checked && investasi > 0 && haul >= 1) {
+          const zakat = investasi * 0.10;
+          hasil += zakat;
+          argumen += `✅ Investasi Rp ${rupiah(investasi)} → Zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const tabungan = parseFloat(document.getElementById("tabungan").value) || 0;
+        if (document.getElementById("chkTabungan").checked && tabungan >= NISAB_TABUNGAN && haul >= 1) {
+          const zakat = tabungan * PERSEN_ZAKAT;
+          hasil += zakat;
+          argumen += `✅ Tabungan Rp ${rupiah(tabungan)} → Zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        const rikaz = parseFloat(document.getElementById("rikaz").value) || 0;
+        if (document.getElementById("chkRikaz").checked && rikaz > 0) {
+          const zakat = rikaz * 0.20;
+          hasil += zakat;
+          argumen += `✅ Rikaz Rp ${rupiah(rikaz)} → Zakat Rp ${rupiah(zakat)}<br>`;
+        }
+
+        totalZakat = hasil;
+        document.getElementById("hasilTitle").innerHTML = `💰 Total Zakat Mal: Rp ${rupiah(hasil)}`;
+        document.getElementById("argumen").innerHTML = argumen || "Belum ada harta yang wajib dizakati.";
+        document.getElementById("logika").innerHTML =
+          "Hukum logika pada Zakat Mal menggunakan konjungsi (AND) untuk memastikan dua kondisi (nisab ∧ haul) terpenuhi, disjungsi (OR) untuk beberapa harta, dan negasi (NOT) untuk meniadakan kewajiban jika syarat tidak terpenuhi.";
+        
+      } else if (jenis === "fitrah") {
+        const jiwa = parseFloat(document.getElementById("jiwa").value) || 0;
+        const hargaBeras = parseFloat(document.getElementById("hargaBeras").value) || 0;
+        const totalBeras = jiwa * 2.5 * hargaBeras;
+        totalZakat = totalBeras;
+        document.getElementById("hasilTitle").innerHTML = `🍚 Total Zakat Fitrah: Rp ${rupiah(totalBeras)}`;
+        document.getElementById("argumen").innerHTML = `✅ ${jiwa} jiwa × 2.5 kg × Rp ${rupiah(hargaBeras)}/kg`;
+        document.getElementById("logika").innerHTML =
+          "Hukum logika pada Zakat Fitrah menggunakan implikasi (→): jika seseorang hidup sampai malam Idul Fitri maka wajib zakat fitrah.";
+      } else {
+        alert("Pilih jenis zakat terlebih dahulu!");
+        return;
+      }
+
+      document.getElementById("hasilCard").classList.add("show");
+      document.getElementById("logikaCard").classList.add("show");
+    }
+
+    function hitungPembagian() {
+      const mustahikCheckboxes = Array.from(document.querySelectorAll(".mustahik"));
+      const selected = mustahikCheckboxes.filter(c => c.checked).map(c => c.value);
+
+      if (selected.length === 0) {
+        alert("Pilih minimal satu golongan mustahik!");
+        return;
+      }
+
+      if (totalZakat === 0) {
+        alert("Hitung total zakat terlebih dahulu!");
+        return;
+      }
+
+      const bagianPerOrang = totalZakat / selected.length;
+      let output = `<h3>📊 Pembagian kepada ${selected.length} golongan:</h3>`;
+      
+      selected.forEach(m => {
+        output += `<div class="pembagian-item"><span>${m}</span><strong>Rp ${rupiah(bagianPerOrang)}</strong></div>`;
+      });
+
+      output += `<div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.3); border-radius: 10px; text-align: center;"><strong>Total: Rp ${rupiah(totalZakat)}</strong> (dibagi rata)</div>`;
+
+      document.getElementById("pembagian").innerHTML = output;
+      document.getElementById("pembagianCard").classList.add("show");
+      
+      document.getElementById("logika").innerHTML +=
+        "<br><br>Logika himpunan digunakan di sini: himpunan mustahik yang terpilih adalah subset dari 8 golongan utama, dan pembagian dilakukan secara proporsional berdasarkan kombinasi subset terpilih.";
+    }
+  </script>
+</body>
+</html>
